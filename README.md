@@ -11,6 +11,6 @@ node grasscutter-connector.js
 ```
 possible command line arguments:
 
---port: the port that grasscutter-connector listening to, 9805 by default
+--port: the port that grasscutter-connector listening to, 9508 by default
 
 --jar: the grasscutter .jar file path, "./grasscutter.jar" by default
