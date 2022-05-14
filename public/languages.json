@@ -1,0 +1,22 @@
+[
+  {
+    "key": "zh-cn",
+    "name": "简体中文",
+    "translation": {
+      "commandsTitle": "命令列表",
+      "commandsPlaceholder": "一行输入一个命令",
+      "executeCommand": "执行",
+      "clearCommand": "清理"
+    }
+  },
+  {
+    "key": "en-us",
+    "name": "English",
+    "translation": {
+      "commandsTitle": "Commands",
+      "commandsPlaceholder": "One command per line",
+      "executeCommand": "Execute",
+      "clearCommand": "Clear"
+    }
+  }
+]

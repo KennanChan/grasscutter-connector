@@ -1,3 +1,5 @@
+const CopyWebpackPlugin = require("copy-webpack-plugin")
+
 module.exports = {
   target: "node",
   entry: "./src/index.ts",
@@ -14,5 +16,15 @@ module.exports = {
         loader: "ts-loader"
       }
     ]
-  }
+  },
+  plugins: [
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: "public",
+          to: "public"
+        }
+      ]
+    })
+  ]
 }

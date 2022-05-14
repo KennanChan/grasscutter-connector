@@ -1,4 +1,4 @@
-import express, { Express, json } from "express"
+import express, { Express } from "express"
 import cors from "cors";
 
 import { BaseEventSource } from "./EventManager"
@@ -16,7 +16,8 @@ export class CommandServer extends BaseEventSource<CommandServerEvent> {
 
   start() {
     this.server = express()
-    this.server.use(json())
+    this.server.use(express.json())
+    this.server.use(express.static("public"));
     this.server.use(cors());
     this.server.post("/commands", (req, res) => {
       if (req.body) {
