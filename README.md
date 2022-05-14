@@ -15,6 +15,8 @@ possible command line arguments:
 
 --jar: the grasscutter .jar file path, "./grasscutter.jar" by default
 
+--web: serve the web page for command input and execution. candidates: "0", "1". "1" by default
+
 ## executor
 grasscutter-connector is shipped with a web page for command execution
 

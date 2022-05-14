@@ -5,19 +5,26 @@ import { BaseEventSource } from "./EventManager"
 
 type CommandServerEvent = "commands"
 
+interface CommandServerOptions {
+  web: boolean
+}
 export class CommandServer extends BaseEventSource<CommandServerEvent> {
   private port: number
   private server?: Express
+  private options: Partial<CommandServerOptions>
 
-  constructor(port: number) {
+  constructor(port: number, options: Partial<CommandServerOptions>) {
     super("command_server_event")
     this.port = port
+    this.options = options
   }
 
   start() {
     this.server = express()
     this.server.use(express.json())
-    this.server.use(express.static("public"));
+    if (this.options.web) {
+      this.server.use(express.static("public"));
+    }
     this.server.use(cors());
     this.server.post("/commands", (req, res) => {
       if (req.body) {

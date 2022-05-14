@@ -10,7 +10,7 @@ async function main() {
   const args = minimist(process.argv.slice(2))
   const port = Number(args.port)
   const jarFilePath = args.jar ?? DEFAULT_JAR_FILE
-  const commandServer = new CommandServer(Number.isNaN(port) ? DEFAULT_PORT : port)
+  const commandServer = new CommandServer(Number.isNaN(port) ? DEFAULT_PORT : port, { web: args.web !== 0 })
   const grasscutterRunner = new GrasscutterRunner(jarFilePath)
   commandServer.on("commands", (commands) => {
     grasscutterRunner.send(commands)
