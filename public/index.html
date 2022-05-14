@@ -64,13 +64,16 @@
   </div>
   <script src="./js/vue.min.js"></script>
   <script>
+    const persistStorageKey = "grasscutter-connector-web"
+    const persistKeys = ["commandString", "languageKey"]
     new Vue({
       el: "#app",
       data() {
         return {
-          commandString: localStorage.getItem("commandString") || "",
+          commandString: "",
           languageKey: "zh-cn",
-          languages: []
+          languages: [],
+          ...this.loadPersistState()
         }
       },
       computed: {
@@ -80,13 +83,19 @@
         language() {
           return this.languages.find(({ key }) => key === this.languageKey) || {}
         },
+        persistState() {
+          return persistKeys.reduce((data, key) => {
+            data[key] = this[key]
+            return data
+          }, {})
+        },
         translation() {
           return this.language.translation || {}
         }
       },
       watch: {
-        commandString() {
-          localStorage.setItem("commandString", this.commandString)
+        persistState() {
+          localStorage.setItem(persistStorageKey, JSON.stringify(this.persistState))
         }
       },
       created() {
@@ -103,6 +112,9 @@
           fetch(`/languages.json?t=${Date.now()}`)
             .then(res => res.json())
             .then((languages) => this.languages = languages)
+        },
+        loadPersistState() {
+          return JSON.parse(localStorage.getItem(persistStorageKey) || "{}")
         },
         submit() {
           fetch("/commands", {
