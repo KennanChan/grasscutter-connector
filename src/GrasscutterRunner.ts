@@ -34,7 +34,7 @@ export class GrasscutterRunner extends BaseEventSource<GrasscutterRunnerEvent> {
     }
     process.on('SIGINT', cleanExit)
     process.on('SIGTERM', cleanExit)
-    this.grasscutter = spawn(`java`, ['-jar', this.jarFilePath], {
+    this.grasscutter = spawn(`java`, ["-jar", this.jarFilePath], {
       cwd: process.cwd(),
       detached: true
     })
@@ -49,8 +49,10 @@ export class GrasscutterRunner extends BaseEventSource<GrasscutterRunnerEvent> {
   }
 
   send(commands: string[]) {
-    commands.forEach(command => {
-      this.grasscutter?.stdin?.write(`${command.replace('\n', '')}\n`)
-    })
+    if (Array.isArray(commands)) {
+      commands.forEach(command => {
+        this.grasscutter?.stdin?.write(`${command.replace("\n", "")}\n`)
+      })
+    }
   }
 }
