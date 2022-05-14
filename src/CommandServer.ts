@@ -18,7 +18,7 @@ export class CommandServer extends BaseEventSource<CommandServerEvent> {
     this.server = express()
     this.server.use(json())
     this.server.use(cors());
-    this.server.post("/command", (req, res) => {
+    this.server.post("/commands", (req, res) => {
       if (req.body) {
         this.raise("commands", req.body)
       }
