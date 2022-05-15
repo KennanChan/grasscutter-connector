@@ -20,6 +20,6 @@ possible command line arguments:
 ## executor
 grasscutter-connector is shipped with a web page for command execution
 
-once grasscutter-connector started, visit the page by the server address(default: http://localhost:9508)
+once grasscutter-connector started, visit the web page by the server address(default: http://localhost:9508)
 
 ![web-page](./web-page.png) 
