@@ -1,4 +1,6 @@
 import { ChildProcess, spawn } from "child_process";
+import strip from "strip-color";
+
 import { BaseEventSource } from "./EventManager"
 
 type GrasscutterRunnerEvent = "error" | "output"
@@ -38,8 +40,11 @@ export class GrasscutterRunner extends BaseEventSource<GrasscutterRunnerEvent> {
       cwd: process.cwd(),
       detached: true
     })
-    this.grasscutter.stdout?.pipe(process.stdout)
-    this.grasscutter.once("exit", () => {
+    this.grasscutter?.stdout?.pipe(process.stdout)
+    this.grasscutter?.stdout?.on("data", (chunk: Buffer) => {
+      this.raise("output", strip(chunk.toString("utf-8")))
+    })
+    this.grasscutter?.once("exit", () => {
       this.grasscutter = undefined
     })
     if (this.grasscutter?.stdin) {

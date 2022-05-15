@@ -6,7 +6,12 @@
       "commandsTitle": "命令列表",
       "commandsPlaceholder": "一行输入一个命令",
       "executeCommand": "执行",
-      "clearCommand": "清理"
+      "clearCommand": "清空",
+      "connected": "已连接",
+      "disconnected": "未连接",
+      "output": "输出",
+      "host": "服务器",
+      "port": "端口"
     }
   },
   {
@@ -16,7 +21,12 @@
       "commandsTitle": "Commands",
       "commandsPlaceholder": "One command per line",
       "executeCommand": "Execute",
-      "clearCommand": "Clear"
+      "clearCommand": "Clear",
+      "connected": "Connected",
+      "disconnected": "Disconnected",
+      "output": "Output",
+      "host": "Host",
+      "port": "Port"
     }
   }
 ]
