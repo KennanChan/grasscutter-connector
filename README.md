@@ -1,9 +1,9 @@
 # Grasscutter-connector
-A nodejs connector to send commands to [grasscutter](https://github.com/Grasscutters/Grasscutter) java service via http.
+A nodejs server that enables sending commands to [Grasscutter](https://github.com/Grasscutters/Grasscutter) Java service via http.
 
-Grasscutter-connector wraps the grasscutter java service as a nodejs child process.
+Grasscutter-connector wraps the Grasscutter Java service as a nodejs child process.
 
-Once grasscutter-connector receives an http POST request or a WebSocket message with json array like `["command1", "command2"]`, it then passes the commands to grasscutter service via command line.
+Once grasscutter-connector receives an http POST request or a WebSocket message with json array like `["command1", "command2"]`, it then passes the commands to Grasscutter Java service via command line.
 
 # Usage
 ## Run the server
