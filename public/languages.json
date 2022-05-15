@@ -3,13 +3,13 @@
     "key": "zh-cn",
     "name": "简体中文",
     "translation": {
-      "commandsTitle": "命令列表",
+      "commandsTitle": "输入命令",
       "commandsPlaceholder": "一行输入一个命令",
       "executeCommand": "执行",
       "clearCommand": "清空",
       "connected": "已连接",
       "disconnected": "未连接",
-      "output": "输出",
+      "output": "服务端输出",
       "host": "服务器",
       "port": "端口"
     }
@@ -18,13 +18,13 @@
     "key": "en-us",
     "name": "English",
     "translation": {
-      "commandsTitle": "Commands",
+      "commandsTitle": "Input Commands",
       "commandsPlaceholder": "One command per line",
       "executeCommand": "Execute",
       "clearCommand": "Clear",
       "connected": "Connected",
       "disconnected": "Disconnected",
-      "output": "Output",
+      "output": "Server Output",
       "host": "Host",
       "port": "Port"
     }

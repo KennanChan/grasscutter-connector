@@ -95,15 +95,33 @@
       <div class="card flex-grow-1 flex-shrink-1">
         <span class="card-header d-flex flex-row align-items-center justify-content-between">
           <span>{{ translation.commandsTitle }}({{ commands.length }})</span>
-          <div class="btn-group" role="group">
-            <button type="button" class="btn btn-primary d-flex flex-row align-items-center" @click="submitCommands" title="Ctrl + Enter">
-              <img class="me-1" alt="run" src="./images/run.svg"></img>
-              <span>{{ translation.executeCommand }}</span>
-            </button>
-            <button type="button" class="btn btn-danger d-flex flex-row align-items-center" @click="clearCommands" title="Ctrl + Delete">
-              <img class="me-1" alt="clear" src="./images/clear.svg"></img>
-              <span>{{ translation.clearCommand }}</span>
-            </button>
+          <div class="right d-flex flex-row align-items-center justify-content-between">
+            <div class="dropdown form-control me-3">
+              <a class="form-control dropdown-toggle" href="#" id="methodDropDown" data-bs-toggle="dropdown"
+                aria-expanded="false">
+                {{ method }}
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="methodDropDown">
+                <li @click="() => method = 'WebSocket'">
+                  <a class="dropdown-item" href="#">WebSocket</a>
+                </li>
+                <li @click="() => method = 'HTTP'">
+                  <a class="dropdown-item" href="#">HTTP</a>
+                </li>
+              </ul>
+            </div>
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-primary d-flex flex-row align-items-center" @click="submitCommands"
+                title="Ctrl + Enter">
+                <img class="me-1" alt="run" src="./images/run.svg"></img>
+                <span>{{ translation.executeCommand }}</span>
+              </button>
+              <button type="button" class="btn btn-danger d-flex flex-row align-items-center" @click="clearCommands"
+                title="Ctrl + Delete">
+                <img class="me-1" alt="clear" src="./images/clear.svg"></img>
+                <span>{{ translation.clearCommand }}</span>
+              </button>
+            </div>
           </div>
         </span>
         <textarea v-model="commandString" title="Commands" class="card-body form-control commands-input"
@@ -114,16 +132,20 @@
         <span class="card-header d-flex flex-row align-items-center justify-content-between">
           <span class="d-flex flex-row align-items-center">
             <span>{{ translation.output }}</span>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#198754"
-              class="ms-1 bi bi-cloud-check-fill" v-if="connected" viewBox="0 0 16 16" :title="translation.connected">
-              <path
-                d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 4.854-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z" />
-            </svg>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#dc3545"
-              class="ms-1 bi bi-cloud-slash-fill" v-else viewBox="0 0 16 16" :title="translation.disconnected">
-              <path fill-rule="evenodd"
-                d="M3.112 5.112a3.125 3.125 0 0 0-.17.613C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13H11L3.112 5.112zm11.372 7.372L4.937 2.937A5.512 5.512 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773a3.2 3.2 0 0 1-1.516 2.711zm-.838 1.87-12-12 .708-.708 12 12-.707.707z" />
-            </svg>
+            <span v-if="connected" :title="translation.connected" class="ms-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#198754"
+                class="bi bi-cloud-check-fill" viewBox="0 0 16 16">
+                <path
+                  d="M8 2a5.53 5.53 0 0 0-3.594 1.342c-.766.66-1.321 1.52-1.464 2.383C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13h8.906C14.502 13 16 11.57 16 9.773c0-1.636-1.242-2.969-2.834-3.194C12.923 3.999 10.69 2 8 2zm2.354 4.854-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708.708z" />
+              </svg>
+            </span>
+            <span v-else :title="translation.disconnected" class="ms-1">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#dc3545"
+                class="bi bi-cloud-slash-fill" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                  d="M3.112 5.112a3.125 3.125 0 0 0-.17.613C1.266 6.095 0 7.555 0 9.318 0 11.366 1.708 13 3.781 13H11L3.112 5.112zm11.372 7.372L4.937 2.937A5.512 5.512 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773a3.2 3.2 0 0 1-1.516 2.711zm-.838 1.87-12-12 .708-.708 12 12-.707.707z" />
+              </svg>
+            </span>
           </span>
           <div class="btn-group" role="group">
             <button type="button" class="btn btn-danger d-flex flex-row align-items-center" @click="clearTerminal">
@@ -144,6 +166,7 @@
     const persistKeys = ["commandString", "languageKey", "host", "port"]
     window.app = new Vue({
       el: "#app",
+      ws: null,
       data() {
         return {
           commandString: "",
@@ -151,9 +174,10 @@
           host: location.hostname,
           languageKey: "zh-cn",
           languages: [],
+          method: "WebSocket",
           outputs: [],
           port: location.port,
-          ...this.loadPersistState()
+          ...this.loadPersistedState()
         }
       },
       computed: {
@@ -172,7 +196,7 @@
         output() {
           return this.outputs.join()
         },
-        persistState() {
+        stateToPersist() {
           return persistKeys.reduce((data, key) => {
             data[key] = this[key]
             return data
@@ -184,15 +208,12 @@
       },
       watch: {
         host: {
-          handler() {
-            if (!this.host) {
+          handler(value) {
+            if (!value) {
               this.host = location.hostname
             }
           },
           immediate: true
-        },
-        persistState() {
-          localStorage.setItem(persistStorageKey, JSON.stringify(this.persistState))
         },
         origin() {
           this.init()
@@ -203,12 +224,15 @@
           })
         },
         port: {
-          handler() {
-            if (!this.port) {
+          handler(value) {
+            if (!value) {
               this.port = location.port
             }
           },
           immediate: true
+        },
+        stateToPersist(value) {
+          localStorage.setItem(persistStorageKey, JSON.stringify(value))
         },
       },
       created() {
@@ -225,25 +249,23 @@
           this.outputs = []
         },
         connectTerminal() {
-          const ws = new WebSocket(`ws://${this.origin}/terminal`)
-          this.connectionStatus = ws.readyState
-          ws.onopen = () => {
-            this.connectionStatus = ws.readyState
+          this.ws = new WebSocket(`ws://${this.origin}/terminal`)
+          this.connectionStatus = this.ws.readyState
+          this.ws.onopen = () => {
+            this.connectionStatus = this.ws.readyState
           }
-          ws.onclose = () => {
-            this.connectionStatus = ws.readyState
+          this.ws.onclose = () => {
+            this.connectionStatus = this.ws.readyState
             setTimeout(() => {
               this.connectTerminal()
-            }, 1000);
+            }, 3000);
           }
-          ws.onerror = () => {
-            this.connectionStatus = ws.readyState
-            setTimeout(() => {
-              this.connectTerminal()
-            }, 1000);
+          this.ws.onerror = () => {
+            this.connectionStatus = this.ws.readyState
+            this.ws.close()
           }
-          ws.onmessage = (message) => {
-            this.connectionStatus = ws.readyState
+          this.ws.onmessage = (message) => {
+            this.connectionStatus = this.ws.readyState
             this.outputs.push(message.data)
           }
         },
@@ -256,18 +278,32 @@
             .then(res => res.json())
             .then((languages) => this.languages = languages)
         },
-        loadPersistState() {
+        loadPersistedState() {
           return JSON.parse(localStorage.getItem(persistStorageKey) || "{}")
+        },
+        reconnect() {
         },
         submitCommands() {
           if (this.commands.length) {
-            fetch(`http://${this.origin}/commands`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json"
-              },
-              body: JSON.stringify(this.commands)
-            })
+            if (this.method === "WebSocket") {
+              this.submitCommandsByWebSocket()
+            } else {
+              this.submitCommandsByHTTP()
+            }
+          }
+        },
+        submitCommandsByHTTP() {
+          fetch(`http://${this.origin}/commands`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(this.commands)
+          })
+        },
+        submitCommandsByWebSocket() {
+          if (this.ws) {
+            this.ws.send(JSON.stringify(this.commands))
           }
         }
       }

@@ -2,7 +2,7 @@ import { Server } from "http"
 import WebSocket from "ws"
 import { BaseEventSource } from "./EventManager"
 
-type TerminalServerEvent = "input"
+type TerminalServerEvent = "commands"
 
 export class TerminalServer extends BaseEventSource<TerminalServerEvent> {
   private websocketServer?: WebSocket.Server
@@ -19,6 +19,16 @@ export class TerminalServer extends BaseEventSource<TerminalServerEvent> {
     server.on("upgrade", (req, socket, head) => {
       this.websocketServer?.handleUpgrade(req, socket, head, (websocket) => {
         this.websocketServer?.emit("connection", websocket, req)
+      })
+    })
+    this.websocketServer.on("connection", (connection, request) => {
+      connection.on("message", (data) => {
+        try {
+          const commands = JSON.parse(data.toString("utf-8"))
+          this.raise("commands", commands)
+        } catch (error) {
+          console.error(error)
+        }
       })
     })
   }

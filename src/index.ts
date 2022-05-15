@@ -17,6 +17,9 @@ async function main() {
   commandServer.on("commands", (commands) => {
     grasscutterRunner.send(commands)
   })
+  terminalServer.on("commands", (commands) => {
+    grasscutterRunner.send(commands)
+  })
   await grasscutterRunner.run()
   await commandServer.start()
   commandServer.use(terminalServer)
