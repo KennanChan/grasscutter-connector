@@ -19,7 +19,7 @@ Possible command line arguments:
 --web: serve the web page for command input and execution. candidates: "0", "1". "1" by default
 ```
 ## API Specification
-``` http
+```
 [POST] http://{server_host}:{server_port}/commands
 headers: {
   Content-Type: application/json
